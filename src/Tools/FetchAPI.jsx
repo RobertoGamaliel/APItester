@@ -6,15 +6,14 @@ import axios from "axios";
  * @param {loader} loader if the function should show a loader when the data is loading
  * @returns 
  */
-export const FetchAPI = async (url, args, headers = {}, method = "POST") => {
+export const FetchAPI = async (url, args = {}, headers = {}, method = "POST") => {
     if (typeof method !== 'string') method = "POST";
     method = method.toUpperCase();
-    if (['POST', 'GET', 'PUT', 'DELETE', 'PATCH'].indexOf(method) === -1) method = "POST";
-
-    headers['Content-Type'] = 'application/json; charset=utf-8';
+    if (!['POST', 'GET', 'PUT', 'DELETE', 'PATCH'].includes(method)) method = "POST";
+    console.log(`url`, url, method);
+    //headers['Content-Type'] = 'application/json; charset=utf-8';
     const api = axios.create({
         baseURL: url,
-        timeout: 300000,
         headers: headers
     });
 
@@ -22,28 +21,39 @@ export const FetchAPI = async (url, args, headers = {}, method = "POST") => {
     try {
         switch (method) {
             case 'POST':
-                resp = await api.post(url, args);
+                resp = await api.post(url, args).catch((error) => { return error.response });
                 break;
             case 'GET':
-                resp = await api.get(url, args);
+                resp = await api.get(url, args).catch((error) => { return error.response });
                 break;
             case 'PUT':
-                resp = await api.put(url, args);
+                resp = await api.put(url, args).catch((error) => { return error.response });
+                break;
+            case 'PATCH':
+                resp = await api.patch(url, args).catch((error) => { return error.response });
                 break;
             case 'DELETE':
-                resp = await api.delete(url, args);
+                resp = await api.delete(url, args).catch((error) => { return error.response });
                 break;
         }
+
+
     } catch (error) {
-        return { 'error': true, 'data': parseTry(error.response.data) };
+        return { 'error': true, 'data': parseTry(error?.response?.data) };
     }
-    return { 'error': false, 'data': parseTry(resp.data) };
+    if (!resp) return { 'error': true, 'data': 'Sin respuesta del servidor' };
+
+    if (resp.status !== 200) {
+        return { 'error': true, 'data': "Status " + resp.status + ", " + resp.statusText };
+    }
+
+    return { 'error': false, 'data': parseTry(resp?.data) };
 }
 
 const parseTry = (object) => {
     try {
-        let parsed = JSON.stringify(object);
-        if (parsed.length > 400) return parsed.substring(0, 400) + '...';
+        let parsed = JSON.stringify(object, null, 2);
+        if (parsed.length > 600) return parsed.substring(0, 600) + '...';
         return parsed;
     } catch (error) {
         return "Sin objeto de respuesta";
