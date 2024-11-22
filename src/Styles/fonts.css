@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+.revolution-font {
+    font-family: 'Protest Revolution', sans-serif !important;
+}
+
+.dosis {
+    font-family: 'Dosis', sans-serif;
+}
+
+.raleway {
+    font-family: 'Raleway', sans-serif;
+}
+
+.justify {
+    text-align: justify;
+}

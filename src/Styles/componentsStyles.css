@@ -1,0 +1,104 @@
+thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+th {
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    /* Alineación horizontal al centro */
+    align-items: center;
+}
+
+.contenedor-bottom {
+    display: flex;
+    justify-content: center;
+    /* Alineación horizontal al centro */
+    align-items: end;
+}
+
+.contenedor-top {
+    display: flex;
+    justify-content: center;
+    /* Alineación horizontal al centro */
+    align-items: top;
+}
+
+.text-100 {
+    font-weight: 100;
+}
+
+.text-200 {
+    font-weight: 200;
+}
+
+.text-300 {
+    font-weight: 300;
+}
+
+.text-400 {
+    font-weight: 400;
+}
+
+.text-500 {
+    font-weight: 500;
+}
+
+.text-600 {
+    font-weight: 600;
+}
+
+.text-700 {
+    font-weight: 700;
+}
+
+.text-800 {
+    font-weight: 800;
+}
+
+.text-900 {
+    font-weight: 900;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-s {
+    font-size: small;
+}
+
+.text-xs {
+    font-size: x-small;
+}
+
+.text-xxs {
+    font-size: xx-small;
+}
+
+.text-m {
+    font-size: medium;
+}
+
+.text-l {
+    font-size: large;
+}
+
+.text-xl {
+    font-size: x-large;
+}
+
+.text-xxl {
+    font-size: xx-large;
+}
+
+.nowrap {
+    white-space: nowrap;
+}

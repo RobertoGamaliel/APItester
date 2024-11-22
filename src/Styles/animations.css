@@ -1,0 +1,175 @@
+.scale-continue-05 {
+    animation: scaleAnimation-05 .5s infinite alternate ease;
+}
+
+@keyframes scaleAnimation-05 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.2s ease-in-out;
+    opacity: 1;
+    height: 100%;
+    margin: 5px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.mandatory {
+    scroll-snap-type: y mandatory;
+}
+
+.mandatory-child {
+    scroll-snap-align: start;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    to {
+        opacity: 1;
+        height: 100%;
+        margin: 5px;
+        padding: 5px;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        height: 100%;
+        margin: 5px;
+        padding: 5px;
+    }
+
+    to {
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.aparecer {
+    animation: aparecer 1s ease-in;
+    opacity: 1;
+    height: 100%;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        height: 25%;
+    }
+
+    to {
+        opacity: 1;
+        height: 100%;
+    }
+}
+
+.desaparecer {
+    animation: desaparecer 1s ease;
+    opacity: 0;
+    height: 25%;
+}
+
+@keyframes desaparecer {
+    from {
+        opacity: 1;
+        height: 100%;
+    }
+
+    to {
+        opacity: 0;
+        height: 25%;
+    }
+}
+
+.entrar-desde-izquierda {
+    animation: entrar-desde-izquierda .3s ease-in;
+    opacity: 1;
+}
+
+@keyframes entrar-desde-izquierda {
+    0% {
+        transform: translateX(-40%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.salir-desde-izquierda {
+    animation: salir-desde-izquierda .3s ease;
+    opacity: 0;
+}
+
+@keyframes salir-desde-izquierda {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.entrar-desde-derecha {
+    animation: entrar-desde-derecha .3s ease-out;
+    opacity: 1;
+}
+
+@keyframes entrar-desde-derecha {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.salir-desde-derecha {
+    animation: salir-desde-derecha .3s ease;
+    opacity: 0;
+}
+
+@keyframes salir-desde-derecha {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(40%);
+        opacity: 0;
+    }
+}

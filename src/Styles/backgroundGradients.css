@@ -1,0 +1,61 @@
+.gradient-grey-dark {
+    background-image: linear-gradient(to bottom, #d4d4d4, #a1a1a1, #6b6a6a, #494949, #2e2d2d, #151515);
+}
+
+.gradient-grey {
+    background-image: linear-gradient(to bottom, #fafafa, #d4d4d4, #d4d4d4, #a1a1a1, #6b6a6a, #494949);
+}
+
+.gradient-grey-light {
+    background-image: linear-gradient(to bottom, #ffffff, #f0f0f0, #c9c8c8, #cbcaca, #888787);
+}
+
+.gradient-orange {
+    background-image: linear-gradient(to bottom right, #facc00, #b19000, #866e01, #655300);
+}
+
+.gradient-dark {
+    background-image: linear-gradient(to bottom right, #979797, #555555, #383838, #161616);
+}
+
+.athlos_gradient {
+    background: linear-gradient(to bottom left, #bb8508, #d7d7d8f5, #7d5803, #2c2c2e, #2c2c2e, #2c2c2e);
+}
+
+.gradient-brown-milk {
+    background-image: linear-gradient(to bottom right, #fafafa, #fbf7f4, #fff8f2, #fdf2e7, #f6c8a0);
+}
+
+.gradient-curcuma {
+    background-image: linear-gradient(to bottom right, #fee3e359, #ffe6be3a, #c1ebff5e, #e1b3ff3a, #52525247);
+}
+
+.gradient-bluly {
+    background-image: linear-gradient(to bottom right, #0b89f059, #d6faff3a, #ffffff5e, #cbafff3a, #4a6bfe6a);
+}
+
+.gradient-products {
+    background-image: linear-gradient(to bottom right, #7b000028, #fefbfe, #fffaa23a, #4ad1fe6a);
+}
+
+.gradient-orders {
+    background-image: linear-gradient(to bottom left, #6ab9ee, #c1e2f8, #ffffff, #ffffff, #f1f1f1, #e4e4e4, #cacaca);
+}
+
+.gradient-shopping-lists {
+    background:
+        linear-gradient(to top left, #6ab9ee, #bee5ff, #c1e2f8, #ffffff, #f1f1f1, #e4e4e4, #cacaca),
+        /* Gradiente */
+        url('../assets/shl.png');
+    /* Imagen de fondo */
+    background-size: cover;
+    /* Ajusta la imagen para cubrir el contenedor */
+    background-blend-mode: overlay;
+    /* Mezcla el gradiente y la imagen */
+    /* background-image: */
+}
+
+.gradient-shopping-lists-no-imaage {
+    background:
+        linear-gradient(to top left, #6ab9ee, #bee5ff, #c1e2f8, #ffffff, #f1f1f1, #e4e4e4, #cacaca);
+}
