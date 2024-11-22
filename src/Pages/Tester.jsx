@@ -16,6 +16,7 @@ const Tester = () => {
             seterrorEchemmas(true);
             return;
         }
+        seterrorEchemmas(false);
         setschemmas(JSON.parse(value));
     }
 
