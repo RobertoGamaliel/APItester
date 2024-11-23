@@ -32,6 +32,7 @@ const Tester = () => {
         let schemmasCopy = JSON.parse(JSON.stringify(schemmas));
 
         for (let i = 0; i < schemmas.length; i++) {
+            if (schemmasCopy[i].ignore) continue;
             autoScroll(`${i}Schemma`);
             settesting({ active: true, index: i });
             let s = schemmasCopy[i];
@@ -86,16 +87,30 @@ const Tester = () => {
                 {<div className={'col-auto' + (testing.active ? ' opacity-50' : '')}>
                     <NewSchemma schemmas={schemmas} setschemmas={cambiarDesdeHijo} newSchemma={true} />
                 </div>}
-                <button className='btn text-bold border border-dark border-3 round-xxl shadow bw-400 mt-3 mb-3 btn-warning'
-                    style={{ position: "sticky", top: 0, zIndex: 5 }}
-                    disabled={testing.active || schemmas.length === 0}
-                    onClick={() => {
-                        if (testing.active) {
-                            settesting({ active: false, index: -1 });
-                        } else {
-                            testApis();
-                        }
-                    }}>INICIAR TEST</button>
+                <div className='w-100' style={{ position: "sticky", top: 0, zIndex: 5 }}>
+                    <div className='row justify-content-evenly w-100 m-0 p-0'>
+                        <button className={'btn text-bold border border-dark border-3 round-xxl shadow bw-400 mt-1 mb-1 btn-warning' +
+                            (testing.active ? ' opacity-50' : '')}
+                            disabled={testing.active || schemmas.length === 0}
+                            onClick={() => {
+                                if (testing.active) {
+                                    settesting({ active: false, index: -1 });
+                                } else {
+                                    testApis();
+                                }
+                            }}>INICIAR TEST</button>
+                        <button className={'btn text-bold text-s  border border-dark border-3 round-xxl shadow bw-150 mt-1 mb-1 btn-light' +
+                            (testing.active ? ' opacity-50' : '')}
+                            disabled={testing.active || schemmas.length === 0}
+                            onClick={() => {
+                                let schemmasCopy = JSON.parse(JSON.stringify(schemmas));
+                                schemmasCopy.forEach(s => {
+                                    s.test = undefined;
+                                });
+                                cambiarDesdeHijo(schemmasCopy);
+                            }}>Limpiar resultados</button>
+                    </div>
+                </div>
                 {schemmas.map((s, i) =>
                     <React.Fragment key={i}>
                         <NewSchemma

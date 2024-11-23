@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import JsonEditor from './Components/JsonEditor';
+import SchemmaNameTitle from './Components/SchemmaNameTitle';
 
 const NewSchemma = (p) => {
     const index = p.index ?? -1;
@@ -10,7 +11,7 @@ const NewSchemma = (p) => {
     const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
     const formStyle = "form-control form-control-sm shadow-sm border round-s";
     const containerStyle = newSchemma ?
-        "bw-1300 shadow-multi round-m p-1 pb-3 mt-3 pt-2 bg-white" :
+        "bw-1300 shadow-multi round-m p-1 pb-3 mt-3 pt-4 bg-white" :
         `bw-1300 shadow-sm round-m p-1 pt-4 mt-4 border bg-light ${isActiveTest ? 'border-warning border-4 scale-continue-025' : ''}`;
     const [schemma, setschemma] = useState({
         url: p.schemma?.url ?? "",
@@ -19,9 +20,9 @@ const NewSchemma = (p) => {
         body: p.schemma?.body ?? {},
         bodyError: false,
         headersError: false,
+        title: p.schemma?.title,
         test: p.schemma?.test
     });
-
 
     useEffect(() => {
         setschemma({
@@ -31,9 +32,19 @@ const NewSchemma = (p) => {
             body: p.schemma?.body ?? {},
             bodyError: false,
             headersError: false,
+            title: p.schemma?.title,
+            ignore: p.schemma?.ignore,
             test: p.schemma?.test
         });
-    }, [p.schemma, p.schemma?.url, p.schemma?.method, p.schemma?.headers, p.schemma?.body, p.schemma?.test]);
+    }, [
+        p.schemma,
+        p.schemma?.url,
+        p.schemma?.method,
+        p.schemma?.headers,
+        p.schemma?.body,
+        p.schemma?.test,
+        p.schemma?.title,
+        p.schemma?.ignore]);
 
     const changeSchemma = (e) => {
         let { name, value } = e.target;
@@ -63,9 +74,10 @@ const NewSchemma = (p) => {
             method: schemmaToSave.method,
             headers: schemmaToSave.headers,
             body: schemmaToSave.body,
+            title: schemmaToSave.title,
+            ignore: schemmaToSave.ignore,
             test: schemmaToSave.test
         };
-
         setschemmas(actualSchemmas);
 
     }
@@ -77,6 +89,8 @@ const NewSchemma = (p) => {
             method: schemma.method,
             headers: schemma.headers,
             body: schemma.body,
+            title: schemma.title,
+            ignore: false,
             test: schemma.test
         });
         setschemmas(actualSchemmas);
@@ -87,6 +101,8 @@ const NewSchemma = (p) => {
             body: '{}',
             bodyError: false,
             headersError: false,
+            title: null,
+            ignore: false,
             test: null
         });
     }
@@ -117,7 +133,7 @@ const NewSchemma = (p) => {
         let updatedSchemmas = JSON.parse(JSON.stringify(schemmas));
         let schemaIndex = JSON.parse(JSON.stringify(schemmas[index]));
         let schemaNewIndex = JSON.parse(JSON.stringify(schemmas[newIndex]));
-        console.log(`schemaIndex`, schemaIndex, schemaNewIndex);
+
         updatedSchemmas[index] = schemaNewIndex;
         updatedSchemmas[newIndex] = schemaIndex;
         setschemmas(updatedSchemmas);
@@ -146,10 +162,12 @@ const NewSchemma = (p) => {
     }
 
     return (
-        <div className={containerStyle + (schemma?.test?.error ? " border-danger border-3" : "")} style={{ position: "relative" }}
+        <div
+            className={containerStyle + (schemma?.test?.error ? " border-danger border-3" : "") + (schemma?.ignore ? " opacity-50" : "")}
+            style={{ position: "relative", }}
             id={[undefined, null].includes(index) ? "sinid" : `${index}Schemma`}>
-            {!newSchemma && <div className='col-auto text-center text-bold ps-3' style={{ position: "absolute", top: 0 }}>Solicitud {index + 1}</div>}
-            <div className='row justify-content-evenly w-100 m-0 p-0'>
+            <SchemmaNameTitle title={schemma.title} index={index} newSchemma={newSchemma} changeTitleFunction={(newTitle) => saveLocalOrGlobal({ ...schemma, title: newTitle })} />
+            <div className='row justify-content-evenly w-100 m-0 p-0 mt-2'>
 
                 <div className='form-group bw-650 p-0 m-0'>
                     {newSchemma && <label className='text-bold w-100 text-start ps-2'>URL</label>}
@@ -173,9 +191,8 @@ const NewSchemma = (p) => {
 
                 </div>
                 <div className='bw-600 p-0 m-0'>
-                    <JsonEditor jsonString={schemma.headers}
+                    <JsonEditor json={schemma.headers}
                         pharams={{ title: 'Headers' }}
-                        styles={{ container: 'w-100 m-0 p-1' }}
                         viewMode={newSchemma ? false : true}
                         save={(jsonData) => saveSchemmaFromEditor(jsonData, 'headers')}
                     />
@@ -190,6 +207,11 @@ const NewSchemma = (p) => {
                         <div className='border bg-red3 text-white p-0 contenedor round-xl shadow-sm scale-025 pointer bw-150 text-bold me-2 ms-2 mt-1 mb-1'
                             onClick={deleteSchemma}
                         >Eliminar</div>
+                        <div
+                            className='border border-warning p-0 contenedor round-xl shadow-sm scale-025 pointer bw-200 text-bold me-2 ms-2 mt-1 mb-1'
+                            onClick={() => saveLocalOrGlobal({ ...schemma, ignore: !schemma.ignore })}
+                            disabled={index === 0}
+                        >{schemma.ignore ? "Ignorar durante el test" : "Ejecutar en el test"}</div>
                         <div
                             className='border p-0 contenedor round-xl shadow-sm scale-025 pointer bw-100 text-bold me-2 ms-2 mt-1 mb-1'
                             onClick={() => changeIndex(true)}

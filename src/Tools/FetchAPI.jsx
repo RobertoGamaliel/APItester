@@ -10,7 +10,6 @@ export const FetchAPI = async (url, args = {}, headers = {}, method = "POST") =>
     if (typeof method !== 'string') method = "POST";
     method = method.toUpperCase();
     if (!['POST', 'GET', 'PUT', 'DELETE', 'PATCH'].includes(method)) method = "POST";
-    console.log(`url`, url, method);
     //headers['Content-Type'] = 'application/json; charset=utf-8';
     const api = axios.create({
         baseURL: url,
@@ -44,7 +43,8 @@ export const FetchAPI = async (url, args = {}, headers = {}, method = "POST") =>
     if (!resp) return { 'error': true, 'data': 'Sin respuesta del servidor' };
 
     if (resp.status !== 200) {
-        return { 'error': true, 'data': "Status " + resp.status + ", " + resp.statusText };
+        let dataResp = parseTry(resp?.data);
+        return { 'error': true, 'data': `Status ${resp.status}, ${resp.statusText}. data: ${dataResp}` };
     }
 
     return { 'error': false, 'data': parseTry(resp?.data) };
